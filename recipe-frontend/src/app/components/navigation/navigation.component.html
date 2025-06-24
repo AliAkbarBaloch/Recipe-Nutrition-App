@@ -1,0 +1,44 @@
+<mat-toolbar class="modern-navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand" routerLink="/">
+      <mat-icon class="brand-icon">restaurant_menu</mat-icon>
+      <span class="brand-text">Recipe Nutrition</span>
+    </div>
+    
+    <nav class="navbar-nav">
+      <button mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button mat-button routerLink="/recipes" routerLinkActive="active" class="nav-link">
+        <mat-icon>library_books</mat-icon>
+        <span>Recipes</span>
+      </button>
+      <button mat-button routerLink="/recipe/new" routerLinkActive="active" class="nav-link">
+        <mat-icon>add_circle</mat-icon>
+        <span>Create Recipe</span>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button mat-icon-button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+      <mat-icon>{{ mobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" [class.open]="mobileMenuOpen">
+    <button mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="mobile-nav-link" (click)="closeMobileMenu()">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-button routerLink="/recipes" routerLinkActive="active" class="mobile-nav-link" (click)="closeMobileMenu()">
+      <mat-icon>library_books</mat-icon>
+      <span>Recipes</span>
+    </button>
+    <button mat-button routerLink="/recipe/new" routerLinkActive="active" class="mobile-nav-link" (click)="closeMobileMenu()">
+      <mat-icon>add_circle</mat-icon>
+      <span>Create Recipe</span>
+    </button>
+  </div>
+</mat-toolbar>

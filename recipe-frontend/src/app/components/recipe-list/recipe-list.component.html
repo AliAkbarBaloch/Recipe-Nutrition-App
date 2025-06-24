@@ -1,0 +1,281 @@
+<div class="recipe-list-container">
+  <!-- Hero Header Section -->
+  <div class="hero-header">
+    <div class="header-content">
+      <div class="header-text">
+        <h1 class="hero-title">
+          <mat-icon class="title-icon">restaurant_menu</mat-icon>
+          My Recipe Collection
+        </h1>
+        <p class="hero-subtitle">Discover, create, and share your favorite recipes</p>
+      </div>
+      <button mat-fab extended color="primary" class="add-recipe-fab" (click)="addNewRecipe()">
+        <mat-icon>add</mat-icon>
+        Add Recipe
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <mat-card class="glass-card">
+      <mat-card-content>
+        <div class="loading-content">
+          <mat-spinner diameter="50"></mat-spinner>
+          <p>Loading your delicious recipes...</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-state">
+    <mat-card class="glass-card error-card">
+      <mat-card-content>
+        <div class="error-content">
+          <mat-icon class="error-icon">error_outline</mat-icon>
+          <h3>Oops! Something went wrong</h3>
+          <p>{{ error }}</p>
+          <button mat-raised-button color="primary" (click)="loadRecipes()">
+            <mat-icon>refresh</mat-icon>
+            Try Again
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !error && recipes.length === 0" class="empty-state">
+    <mat-card class="glass-card empty-card">
+      <mat-card-content>
+        <div class="empty-content">
+          <mat-icon class="empty-icon">restaurant</mat-icon>
+          <h3>Your Recipe Book Awaits</h3>
+          <p>Start building your personal collection of amazing recipes!</p>
+          <button mat-raised-button color="primary" class="cta-button" (click)="addNewRecipe()">
+            <mat-icon>add_circle</mat-icon>
+            Create Your First Recipe
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Recipe Stats -->
+  <div *ngIf="!isLoading && !error && recipes.length > 0" class="recipe-stats">
+    <div class="stats-grid">
+      <mat-card class="stat-card glass-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon">restaurant_menu</mat-icon>
+            <div class="stat-info">
+              <span class="stat-number">{{ recipes.length }}</span>
+              <span class="stat-label">Recipes</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      
+      <mat-card class="stat-card glass-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon">schedule</mat-icon>
+            <div class="stat-info">
+              <span class="stat-number">{{ getAverageTime() }}</span>
+              <span class="stat-label">Avg Time</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      
+      <mat-card class="stat-card glass-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon">local_fire_department</mat-icon>
+            <div class="stat-info">
+              <span class="stat-number">{{ getAverageCalories() }}</span>
+              <span class="stat-label">Avg Calories</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Recipe Grid -->
+  <div *ngIf="!isLoading && !error && recipes.length > 0" class="recipes-grid">
+    <mat-card *ngFor="let recipe of recipes" class="recipe-card glass-card">
+      <!-- Recipe Header -->
+      <mat-card-header class="recipe-header">
+        <div class="header-main">
+          <mat-card-title class="recipe-title">
+            <mat-icon class="recipe-icon">restaurant</mat-icon>
+            {{ recipe.name }}
+          </mat-card-title>
+          <mat-card-subtitle *ngIf="recipe.description" class="recipe-description">
+            {{ recipe.description }}
+          </mat-card-subtitle>
+        </div>
+        <div class="header-actions">
+          <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editRecipe(recipe)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit Recipe</span>
+            </button>
+            <button mat-menu-item (click)="deleteRecipe(recipe)" class="delete-item">
+              <mat-icon>delete</mat-icon>
+              <span>Delete Recipe</span>
+            </button>
+          </mat-menu>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <!-- Recipe Meta Info -->
+        <div class="recipe-meta">
+          <div class="meta-chips">
+            <mat-chip-set>
+              <mat-chip class="meta-chip">
+                <mat-icon matChipAvatar>people</mat-icon>
+                {{ recipe.servings || 1 }} servings
+              </mat-chip>
+              <mat-chip *ngIf="getTotalTime(recipe) > 0" class="meta-chip">
+                <mat-icon matChipAvatar>schedule</mat-icon>
+                {{ getTotalTime(recipe) }} min
+              </mat-chip>
+            </mat-chip-set>
+          </div>
+        </div>
+
+        <!-- Ingredients Preview -->
+        <mat-expansion-panel class="content-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>shopping_cart</mat-icon>
+              Ingredients ({{ recipe.ingredients.length || 0 }})
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="ingredients-list">
+            <div *ngFor="let ingredient of recipe.ingredients?.slice(0, 5)" class="ingredient-item">
+              <mat-icon class="ingredient-icon">fiber_manual_record</mat-icon>
+              <span class="ingredient-text">
+                {{ ingredient.quantity }}{{ ingredient.unit }} {{ ingredient.name }}
+              </span>
+            </div>
+            <div *ngIf="recipe.ingredients && recipe.ingredients.length > 5" class="more-items">
+              <mat-icon>add</mat-icon>
+              {{ recipe.ingredients.length - 5 }} more ingredients...
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- Steps Preview -->
+        <mat-expansion-panel class="content-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>list_alt</mat-icon>
+              Instructions ({{ recipe.steps.length || 0 }})
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="steps-list">
+            <!-- Always show first step -->
+            <div *ngIf="recipe.steps && recipe.steps.length > 0" class="step-item">
+              <div class="step-number">1</div>
+              <span class="step-text">
+                {{ recipe.steps[0].instruction.length > 120 ? 
+                   (recipe.steps[0].instruction | slice:0:120) + '...' : 
+                   recipe.steps[0].instruction }}
+              </span>
+            </div>
+            
+            <!-- Show remaining steps if expanded -->
+            <div *ngIf="isStepsExpanded(recipe.id!) && recipe.steps && recipe.steps.length > 1">
+              <div *ngFor="let step of recipe.steps.slice(1); let i = index" class="step-item">
+                <div class="step-number">{{ i + 2 }}</div>
+                <span class="step-text">{{ step.instruction }}</span>
+              </div>
+            </div>
+            
+            <!-- Show "more steps" button if there are additional steps and not expanded -->
+            <div *ngIf="recipe.steps && recipe.steps.length > 1 && !isStepsExpanded(recipe.id!)" 
+                 class="more-items" 
+                 (click)="toggleSteps(recipe.id!)">
+              <mat-icon>add</mat-icon>
+              {{ recipe.steps.length - 1 }} more steps...
+            </div>
+            
+            <!-- Show "show less" button if expanded -->
+            <div *ngIf="isStepsExpanded(recipe.id!) && recipe.steps && recipe.steps.length > 1" 
+                 class="more-items" 
+                 (click)="toggleSteps(recipe.id!)">
+              <mat-icon>remove</mat-icon>
+              Show less
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- Nutrition Info -->
+        <mat-expansion-panel class="content-panel nutrition-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>local_fire_department</mat-icon>
+              Nutrition Facts
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="nutrition-grid">
+            <div class="nutrition-item">
+              <mat-icon>local_fire_department</mat-icon>
+              <span class="nutrition-value">{{ recipe.total_calories || '0' }}</span>
+              <span class="nutrition-unit">calories</span>
+            </div>
+            <div class="nutrition-item">
+              <mat-icon>grain</mat-icon>
+              <span class="nutrition-value">{{ recipe.total_carbs || '0' }}g</span>
+              <span class="nutrition-unit">carbs</span>
+            </div>
+            <div class="nutrition-item">
+              <mat-icon>opacity</mat-icon>
+              <span class="nutrition-value">{{ recipe.total_fat || '0' }}g</span>
+              <span class="nutrition-unit">fat</span>
+            </div>
+            <div class="nutrition-item">
+              <mat-icon>fitness_center</mat-icon>
+              <span class="nutrition-value">{{ recipe.total_protein || '0' }}g</span>
+              <span class="nutrition-unit">protein</span>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-card-content>
+
+      <!-- Card Actions -->
+      <mat-card-actions class="card-actions">
+        <button mat-raised-button color="primary" (click)="editRecipe(recipe)" class="action-button">
+          <mat-icon>edit</mat-icon>
+          Edit Recipe
+        </button>
+        <button mat-stroked-button color="accent" class="action-button" [matMenuTriggerFor]="shareMenu">
+          <mat-icon>share</mat-icon>
+          Share
+        </button>
+        <mat-menu #shareMenu="matMenu" class="share-menu">
+          <button mat-menu-item (click)="shareToWhatsApp(recipe)" class="share-item whatsapp">
+            <mat-icon class="share-icon whatsapp-icon">message</mat-icon>
+            <span>Share on WhatsApp</span>
+          </button>
+          <button mat-menu-item (click)="shareToFacebook(recipe)" class="share-item facebook">
+            <mat-icon class="share-icon facebook-icon">facebook</mat-icon>
+            <span>Share on Facebook</span>
+          </button>
+          <button mat-menu-item (click)="copyRecipeLink(recipe)" class="share-item link">
+            <mat-icon class="share-icon">link</mat-icon>
+            <span>Copy Link</span>
+          </button>
+        </mat-menu>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

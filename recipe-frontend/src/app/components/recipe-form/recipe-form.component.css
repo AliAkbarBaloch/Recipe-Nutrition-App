@@ -1,0 +1,535 @@
+/* Recipe Form Container */
+.recipe-form-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 183, 77, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(150, 93, 251, 0.3) 0%, transparent 50%),
+    linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  min-height: 100vh;
+  padding-top: 2rem; /* Extra spacing on top of body padding */
+  padding-bottom: 2rem;
+  position: relative;
+}
+
+.recipe-form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Header Card - Enhanced */
+.header-card {
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  color: white;
+  border-radius: 24px !important;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 15px 25px rgba(102, 126, 234, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+}
+
+.header-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: headerGlow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes headerGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.1; transform: scale(1.1); }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-icon {
+  font-size: 3rem !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 300;
+  background: linear-gradient(45deg, #fff, #f0f8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-subtitle {
+  margin: 0.5rem 0 0 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+/* Form Section Cards */
+.form-section-card {
+  margin-bottom: 2rem;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form-section-card mat-card-header {
+  padding-bottom: 1rem;
+}
+
+.form-section-card mat-card-title {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.section-icon {
+  color: #fff !important;
+  font-size: 1.8rem !important;
+  width: 1.8rem !important;
+  height: 1.8rem !important;
+}
+
+.form-section-card mat-card-subtitle {
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Form Layout */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.time-servings-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Material Form Fields - Clean Fill Appearance */
+.mat-form-field {
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+}
+
+/* Fill appearance styling - glass effect background */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 12px 12px 0 0 !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-bottom: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-underline {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+  height: 2px !important;
+  border-radius: 0 0 12px 12px !important;
+}
+
+.mat-form-field-appearance-fill.mat-focused .mat-form-field-flex {
+  border-color: rgba(102, 126, 234, 0.6) !important;
+  border-width: 2px !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(15px) !important;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2) !important;
+}
+
+.mat-form-field-appearance-fill.mat-focused .mat-form-field-underline {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+  height: 3px !important;
+}
+
+/* Label styling */
+.mat-form-field-appearance-fill .mat-form-field-label {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-weight: 400 !important;
+}
+
+.mat-form-field-appearance-fill.mat-focused .mat-form-field-label {
+  color: #667eea !important;
+}
+
+/* Input field styling */
+.mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0.75rem 0.75rem 0.75rem 0.75rem !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Clean input elements */
+.mat-input-element {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  color: #2c3e50 !important;
+}
+
+.mat-input-element:focus {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Remove any conflicting outline styles */
+.mat-form-field-outline,
+.mat-form-field-outline-start,
+.mat-form-field-outline-end,
+.mat-form-field-outline-gap {
+  display: none !important;
+}
+
+/* Fix subscript wrapper spacing */
+.mat-form-field-subscript-wrapper {
+  margin-top: 0.5rem !important;
+  position: static !important;
+}
+
+/* Ingredient Cards */
+.ingredient-card {
+  margin-bottom: 1rem;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.ingredient-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+.ingredient-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+.ingredient-name {
+  grid-column: span 1;
+}
+
+.ingredient-quantity {
+  grid-column: span 1;
+}
+
+.ingredient-unit {
+  grid-column: span 1;
+}
+
+/* Nutrition Info */
+.nutrition-info {
+  margin-top: 1rem;
+}
+
+.mat-expansion-panel {
+  border-radius: 8px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.nutrition-item {
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+  text-align: center;
+  border-left: 3px solid #667eea;
+}
+
+/* Step Cards */
+.step-card {
+  margin-bottom: 1rem;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.step-number {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.step-header h4 {
+  margin: 0;
+  flex: 1;
+  color: white !important;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.step-actions {
+  margin-left: auto;
+}
+
+/* Buttons */
+.add-button {
+  margin-top: 1rem;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+.add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4) !important;
+}
+
+/* Form Actions Card */
+.form-actions-card {
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  min-width: 120px;
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4) !important;
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  transform: none !important;
+}
+
+.inline-spinner {
+  margin-right: 0.5rem;
+  display: inline-block !important;
+}
+
+/* Error Card */
+.error-card {
+  margin-top: 1rem;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3) !important;
+}
+
+.error-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-content mat-icon {
+  color: white !important;
+}
+
+/* Icon Buttons */
+.mat-icon-button {
+  border-radius: 8px !important;
+}
+
+.mat-icon-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .recipe-form-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .header-title {
+    font-size: 2rem;
+  }
+  
+  .header-icon {
+    font-size: 2.5rem !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+  
+  .ingredient-form {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .time-servings-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .action-button {
+    width: 100%;
+  }
+  
+  .nutrition-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .step-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .step-actions {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .header-title {
+    font-size: 1.8rem;
+  }
+  
+  .form-section-card mat-card-title {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-section-card {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.ingredient-card,
+.step-card {
+  animation: slideInUp 0.4s ease-out;
+}
+
+/* Focus styles */
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #667eea !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+  color: #667eea !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}

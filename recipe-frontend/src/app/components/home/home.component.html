@@ -1,0 +1,74 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <mat-icon class="hero-icon">restaurant_menu</mat-icon>
+          Recipe Nutrition App
+        </h1>
+        <p class="hero-subtitle">
+          Create, manage, and track the nutritional value of your favorite recipes. 
+          Never lose your culinary inspiration again with our auto-save feature.
+        </p>
+        <div class="hero-buttons">
+          <button mat-raised-button color="primary" class="hero-btn primary" (click)="navigateToCreateRecipe()">
+            <mat-icon>add_circle</mat-icon>
+            Create Recipe
+          </button>
+          <button mat-stroked-button class="hero-btn secondary" (click)="navigateToRecipes()">
+            <mat-icon>library_books</mat-icon>
+            View Recipes
+          </button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-card">
+          <mat-icon class="hero-card-icon">local_dining</mat-icon>
+          <h3>Delicious Recipes Await</h3>
+          <p>Start creating your culinary masterpiece today!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="features-header">
+      <h2>Why Choose Our Recipe App?</h2>
+      <p>Discover the features that make cooking and recipe management a breeze</p>
+    </div>
+    
+    <div class="features-grid">
+      <mat-card *ngFor="let feature of features" class="feature-card">
+        <mat-card-content>
+          <div class="feature-icon">
+            <mat-icon>{{ feature.icon }}</mat-icon>
+          </div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <mat-card class="cta-card">
+      <mat-card-content>
+        <div class="cta-content">
+          <div class="cta-text">
+            <h2>Ready to Start Cooking?</h2>
+            <p>Join thousands of home chefs who trust our app to organize their recipes and track nutrition.</p>
+          </div>
+          <div class="cta-actions">
+            <button mat-raised-button color="primary" class="cta-btn" (click)="navigateToCreateRecipe()">
+              <mat-icon>restaurant</mat-icon>
+              Start Creating
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

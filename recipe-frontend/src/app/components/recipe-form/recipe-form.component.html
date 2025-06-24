@@ -1,0 +1,278 @@
+<div class="recipe-form-container">
+  <!-- Header with gradient background and icon -->
+  <div class="form-header">
+    <mat-card class="header-card">
+      <mat-card-content>
+        <div class="header-content">
+          <mat-icon class="header-icon">restaurant_menu</mat-icon>
+          <div>
+            <h1 class="header-title">{{ editMode ? 'Edit Recipe' : 'Create New Recipe' }}</h1>
+            <p class="header-subtitle">{{ editMode ? 'Update your delicious recipe' : 'Share your culinary masterpiece with the world' }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="recipe-form">
+    <!-- Basic Information Card -->
+    <mat-card class="form-section-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon class="section-icon">info</mat-icon>
+          Basic Information
+        </mat-card-title>
+        <mat-card-subtitle>Tell us about your recipe</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="form-grid">
+          <!-- Recipe Name -->
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Recipe Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter a delicious name for your recipe">
+            <mat-icon matSuffix>title</mat-icon>
+            <mat-error *ngIf="recipeForm.get('name')?.hasError('required')">
+              Recipe name is required
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Description -->
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="3" 
+                      placeholder="Describe your recipe, its origin, or what makes it special..."></textarea>
+            <mat-icon matSuffix>description</mat-icon>
+          </mat-form-field>
+
+          <!-- Time and Servings Row -->
+          <div class="time-servings-row">
+            <mat-form-field appearance="fill">
+              <mat-label>Servings</mat-label>
+              <input matInput type="number" formControlName="servings" min="1" placeholder="4">
+              <mat-icon matSuffix>people</mat-icon>
+              <mat-error *ngIf="recipeForm.get('servings')?.hasError('required')">
+                Servings is required
+              </mat-error>
+              <mat-error *ngIf="recipeForm.get('servings')?.hasError('min')">
+                Must be at least 1 serving
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Prep Time</mat-label>
+              <input matInput type="number" formControlName="prep_time" min="0" placeholder="15">
+              <span matSuffix>min</span>
+              <mat-icon matPrefix>schedule</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Cook Time</mat-label>
+              <input matInput type="number" formControlName="cook_time" min="0" placeholder="30">
+              <span matSuffix>min</span>
+              <mat-icon matPrefix>timer</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Ingredients Card -->
+    <mat-card class="form-section-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon class="section-icon">restaurant</mat-icon>
+          Ingredients
+        </mat-card-title>
+        <mat-card-subtitle>List all the ingredients needed</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div formArrayName="ingredients" class="ingredients-list">
+          <div *ngFor="let ingredient of ingredients.controls; let i = index" 
+               [formGroupName]="i" 
+               class="ingredient-item">
+            
+            <mat-card class="ingredient-card">
+              <mat-card-content>
+                <div class="ingredient-form">
+                  <mat-form-field appearance="fill" class="ingredient-name">
+                    <mat-label>Ingredient Name</mat-label>
+                    <input matInput formControlName="name" (input)="onIngredientChange(i)"
+                           placeholder="e.g. Fresh tomatoes">
+                    <mat-icon matSuffix>local_grocery_store</mat-icon>
+                    <mat-error *ngIf="ingredient.get('name')?.hasError('required')">
+                      Ingredient name is required
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="ingredient-quantity">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput type="number" formControlName="quantity" min="0" step="0.1"
+                           placeholder="1">
+                    <mat-error *ngIf="ingredient.get('quantity')?.hasError('required')">
+                      Quantity is required
+                    </mat-error>
+                    <mat-error *ngIf="ingredient.get('quantity')?.hasError('min')">
+                      Quantity must be positive
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="ingredient-unit">
+                    <mat-label>Unit</mat-label>
+                    <mat-select formControlName="unit">
+                      <mat-option value="g">grams (g)</mat-option>
+                      <mat-option value="kg">kilograms (kg)</mat-option>
+                      <mat-option value="ml">milliliters (ml)</mat-option>
+                      <mat-option value="l">liters (l)</mat-option>
+                      <mat-option value="cup">cup</mat-option>
+                      <mat-option value="tbsp">tablespoon</mat-option>
+                      <mat-option value="tsp">teaspoon</mat-option>
+                      <mat-option value="piece">piece</mat-option>
+                      <mat-option value="pinch">pinch</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <button mat-icon-button color="warn" type="button"
+                          (click)="removeIngredient(i)"
+                          [disabled]="ingredients.length === 1"
+                          matTooltip="Remove ingredient">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+
+                <!-- Nutrition Info Display -->
+                <div *ngIf="nutritionInfo[i]" class="nutrition-info">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <mat-icon>analytics</mat-icon>
+                        Nutrition Information
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="nutrition-grid">
+                      <div class="nutrition-item">
+                        <strong>Calories:</strong> {{ nutritionInfo[i]?.calories_per_100g || 'N/A' }} per 100g
+                      </div>
+                      <div class="nutrition-item">
+                        <strong>Protein:</strong> {{ nutritionInfo[i]?.protein_per_100g || 'N/A' }}g per 100g
+                      </div>
+                      <div class="nutrition-item">
+                        <strong>Carbs:</strong> {{ nutritionInfo[i]?.carbs_per_100g || 'N/A' }}g per 100g
+                      </div>
+                      <div class="nutrition-item">
+                        <strong>Fat:</strong> {{ nutritionInfo[i]?.fat_per_100g || 'N/A' }}g per 100g
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" type="button" (click)="addIngredient()" 
+                class="add-button">
+          <mat-icon>add</mat-icon>
+          Add Ingredient
+        </button>
+      </mat-card-content>
+    </mat-card>
+    <!-- Cooking Steps Card -->
+    <mat-card class="form-section-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon class="section-icon">list_alt</mat-icon>
+          Cooking Steps
+        </mat-card-title>
+        <mat-card-subtitle>Break down your recipe into easy-to-follow steps</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div formArrayName="steps" class="steps-list">
+          <div *ngFor="let step of steps.controls; let i = index" 
+               [formGroupName]="i" 
+               class="step-item">
+            
+            <mat-card class="step-card">
+              <mat-card-content>
+                <div class="step-header">
+                  <div class="step-number">
+                    <mat-icon>{{ i + 1 }}</mat-icon>
+                  </div>
+                  <h4>Step {{ i + 1 }}</h4>
+                  <div class="step-actions">
+                    <button mat-icon-button color="warn" type="button"
+                            (click)="removeStep(i)"
+                            [disabled]="steps.length === 1"
+                            matTooltip="Remove step">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                
+                <mat-form-field appearance="fill" class="full-width">
+                  <mat-label>Step Instructions</mat-label>
+                  <textarea matInput formControlName="instruction" rows="3"
+                            placeholder="Describe what to do in this step..."></textarea>
+                  <mat-icon matSuffix>edit_note</mat-icon>
+                  <mat-error *ngIf="step.get('instruction')?.hasError('required')">
+                    Step instruction is required
+                  </mat-error>
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" type="button" (click)="addStep()" 
+                class="add-button">
+          <mat-icon>add</mat-icon>
+          Add Step
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Form Actions Card -->
+    <mat-card class="form-actions-card">
+      <mat-card-content>
+        <div class="form-actions">
+          <button mat-stroked-button type="button" (click)="cancel()" class="action-button">
+            <mat-icon>cancel</mat-icon>
+            Cancel
+          </button>
+          
+          <button mat-stroked-button color="warn" type="button"
+                  (click)="clearSavedData()"
+                  *ngIf="!editMode"
+                  class="action-button"
+                  matTooltip="Clear all saved form data">
+            <mat-icon>clear_all</mat-icon>
+            Clear Saved Data
+          </button>
+          
+          <button mat-raised-button color="primary" type="submit"
+                  [disabled]="isLoading || recipeForm.invalid"
+                  class="action-button submit-button">
+            <mat-icon>{{ editMode ? 'update' : 'save' }}</mat-icon>
+            <span *ngIf="!isLoading">{{ editMode ? 'Update Recipe' : 'Save Recipe' }}</span>
+            <span *ngIf="isLoading">
+              <mat-spinner diameter="20" class="inline-spinner"></mat-spinner>
+              Saving...
+            </span>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Error Display -->
+    <mat-card *ngIf="error" class="error-card">
+      <mat-card-content>
+        <div class="error-content">
+          <mat-icon color="warn">error</mat-icon>
+          <span>{{ error }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

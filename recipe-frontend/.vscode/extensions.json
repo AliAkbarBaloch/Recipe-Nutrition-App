@@ -1,0 +1,7 @@
+{
+  // Extensions I recommend for working on this Angular project
+  // VS Code will suggest installing these when someone opens the workspace
+  
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  "recommendations": ["angular.ng-template"]
+}
