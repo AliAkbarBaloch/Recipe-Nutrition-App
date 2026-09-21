@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1080" font-family="Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1400" height="1080" rx="0" fill="#ffffff" stroke="none" stroke-width="2"/>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+  </marker>
+  <marker id="arrowBlue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+  </marker>
+  <marker id="arrowTeal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/>
+  </marker>
+  <marker id="arrowAmber" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+  </marker>
+</defs>
+<text x="700.0" y="34" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#0f172a" text-anchor="middle">Recipe Nutrition App — Architecture</text>
+<text x="700.0" y="55" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="400" fill="#64748b" text-anchor="middle">Angular client, a layered Laravel REST API, and an external nutrition provider behind a mock-capable service boundary</text>
+<rect x="460" y="84" width="480" height="64" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+<text x="700.0" y="110" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#0f172a" text-anchor="middle">Browser</text>
+<text x="700.0" y="130" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#475569" text-anchor="middle" font-style="italic">manages recipes, looks up ingredient nutrition, views totals</text>
+<rect x="400" y="184" width="600" height="108" rx="14" fill="#eef2ff" stroke="#4338ca" stroke-width="2"/>
+<text x="700.0" y="208" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#312e81" text-anchor="middle">Angular 15 Frontend</text>
+<text x="700.0" y="228" font-family="Helvetica, Arial, sans-serif" font-size="9.8" font-weight="400" fill="#4338ca" text-anchor="middle" font-style="italic">RecipeService · NutritionService · LocalStorageService (form drafts only)</text>
+<text x="700.0" y="246" font-family="Helvetica, Arial, sans-serif" font-size="9.4" font-weight="400" fill="#6366a8" text-anchor="middle" font-style="italic">Reactive Forms, Angular Material (cards, form fields, expansion panels,</text>
+<text x="700.0" y="262" font-family="Helvetica, Arial, sans-serif" font-size="9.4" font-weight="400" fill="#6366a8" text-anchor="middle" font-style="italic">chips, menu) + Tailwind utility classes</text>
+<text x="700.0" y="280" font-family="Helvetica, Arial, sans-serif" font-size="8.8" font-weight="400" fill="#9494c0" text-anchor="middle" font-style="italic">API base URLs hardcoded to http://localhost:8000/api/*</text>
+<rect x="100" y="356" width="1200" height="340" rx="18" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+<text x="124" y="386" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#1e3a8a" text-anchor="start">Laravel 12 Backend (single process)</text>
+<text x="124" y="405" font-family="Helvetica, Arial, sans-serif" font-size="10.3" font-weight="400" fill="#3b5aa6" text-anchor="start" font-style="italic">PHP 8.2+ · REST + JSON · CORS middleware allows only localhost:4200 / 4201</text>
+<rect x="124" y="426" width="568.0" height="92" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4"/>
+<text x="408.0" y="446" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#1e3a8a" text-anchor="middle">RecipeController</text>
+<text x="140" y="462" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  CRUD + recalculate-nutrition endpoints</text>
+<text x="140" y="476.5" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  validates request, persists Recipe +</text>
+<text x="140" y="491.0" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  RecipeIngredients + RecipeSteps</text>
+<rect x="708.0" y="426" width="568.0" height="92" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4"/>
+<text x="992.0" y="446" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#1e3a8a" text-anchor="middle">NutritionController</text>
+<text x="724.0" y="462" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  ingredient search / list / add</text>
+<text x="724.0" y="476.5" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  stateless proxy — does not touch</text>
+<text x="724.0" y="491.0" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  the recipes database</text>
+<rect x="124" y="542" width="568.0" height="112" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4"/>
+<text x="408.0" y="562" font-family="Helvetica, Arial, sans-serif" font-size="10.6" font-weight="700" fill="#1e3a8a" text-anchor="middle">Recipe / RecipeIngredient / RecipeStep</text>
+<text x="140" y="578" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  Recipe::calculateNutrition() scales each</text>
+<text x="140" y="592.5" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  ingredient&#x27;s per-100g values by quantity/100</text>
+<text x="140" y="607.0" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  and sums into recipe totals (4 kcal/g carbs</text>
+<text x="140" y="621.5" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  + protein, 9 kcal/g fat), on every create/update</text>
+<rect x="708.0" y="542" width="568.0" height="112" rx="9" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4"/>
+<text x="992.0" y="562" font-family="Helvetica, Arial, sans-serif" font-size="10.6" font-weight="700" fill="#1e3a8a" text-anchor="middle">NutritionApiService</text>
+<text x="724.0" y="578" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  HTTP Basic Auth to the external provider,</text>
+<text x="724.0" y="592.5" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  10s timeout</text>
+<text x="724.0" y="607.0" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  falls back to a fixed mock ingredient set on</text>
+<text x="724.0" y="621.5" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  any request exception, or when explicitly</text>
+<text x="724.0" y="636.0" font-family="Helvetica, Arial, sans-serif" font-size="8.6" font-weight="400" fill="#334155" text-anchor="start">•  configured via NUTRITION_API_MOCK_MODE</text>
+<rect x="180" y="766" width="380" height="110" rx="14" fill="#f0fdfa" stroke="#0f766e" stroke-width="2.5"/>
+<text x="370.0" y="794" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#134e4a" text-anchor="middle">MySQL</text>
+<text x="370.0" y="814" font-family="Helvetica, Arial, sans-serif" font-size="9.8" font-weight="400" fill="#0f766e" text-anchor="middle" font-style="italic">recipes -&gt; recipe_ingredients / recipe_steps</text>
+<text x="370.0" y="832" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="400" fill="#334155" text-anchor="middle">foreign keys, ON DELETE CASCADE</text>
+<text x="370.0" y="850" font-family="Helvetica, Arial, sans-serif" font-size="8.4" font-weight="400" fill="#94a3b8" text-anchor="middle" font-style="italic">step order enforced in code (ORDER BY step_number),</text>
+<text x="370.0" y="862" font-family="Helvetica, Arial, sans-serif" font-size="8.4" font-weight="400" fill="#94a3b8" text-anchor="middle" font-style="italic">not by a DB constraint</text>
+<rect x="640" y="766" width="340" height="110" rx="14" fill="#fff7ed" stroke="#c2410c" stroke-width="2.5"/>
+<text x="810.0" y="794" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#7c2d12" text-anchor="middle">External Nutrition Provider</text>
+<text x="810.0" y="814" font-family="Helvetica, Arial, sans-serif" font-size="9.4" font-weight="400" fill="#9a3412" text-anchor="middle" font-style="italic">interview.workcentrix.de/ingredients.php</text>
+<rect x="0" y="-100" width="49.5" height="17" rx="8.5" fill="#dbeafe"/>
+<text x="24.740000000000002" y="-88" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle" letter-spacing="0.4">REMOTE</text>
+<rect x="785.26" y="826" width="49.5" height="17" rx="8.5" fill="#dbeafe"/>
+<text x="810.0" y="838" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle" letter-spacing="0.4">REMOTE</text>
+<text x="810.0" y="858" font-family="Helvetica, Arial, sans-serif" font-size="8.4" font-weight="400" fill="#94a3b8" text-anchor="middle" font-style="italic">credentials hardcoded in NutritionApiService</text>
+<rect x="1040" y="766" width="260" height="110" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="1170.0" y="794" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#475569" text-anchor="middle">Mock Provider</text>
+<text x="1170.0" y="814" font-family="Helvetica, Arial, sans-serif" font-size="9.4" font-weight="400" fill="#64748b" text-anchor="middle" font-style="italic">fixed in-code ingredient set</text>
+<rect x="0" y="-100" width="122.0" height="17" rx="8.5" fill="#fef3c7"/>
+<text x="61.01" y="-88" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="700" fill="#92400e" text-anchor="middle" letter-spacing="0.4">DEV / FALLBACK ONLY</text>
+<rect x="1108.99" y="826" width="122.0" height="17" rx="8.5" fill="#fef3c7"/>
+<text x="1170.0" y="838" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="700" fill="#92400e" text-anchor="middle" letter-spacing="0.4">DEV / FALLBACK ONLY</text>
+<path d="M 700.0,148 L 700.0,184" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="708.0" y="155.0" width="34.4" height="19.4" rx="4" fill="#ffffff" fill-opacity="0.95"/>
+<text x="708.0" y="166.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155" text-anchor="start">HTTP</text>
+<path d="M 700.0,292 L 700.0,356" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arrowBlue)" marker-start="url(#arrowBlue)"/>
+<rect x="710.0" y="313.4" width="270.0" height="32.0" rx="4" fill="#ffffff" fill-opacity="0.95"/>
+<text x="710.0" y="324.0" font-family="Helvetica, Arial, sans-serif" font-size="9.6" font-weight="400" fill="#1d4ed8" text-anchor="start">REST / JSON — CORS restricted to the Angular dev</text>
+<text x="710.0" y="337.0" font-family="Helvetica, Arial, sans-serif" font-size="9.6" font-weight="400" fill="#1d4ed8" text-anchor="start">origins</text>
+<path d="M 408.0,518 L 408.0,542" fill="none" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 992.0,518 L 992.0,542" fill="none" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M 408.0,654 L 408.0,696 L 370.0,696 L 370.0,766" fill="none" stroke="#0f766e" stroke-width="2" marker-end="url(#arrowTeal)"/>
+<rect x="219.0" y="741.4" width="141.0" height="19.0" rx="4" fill="#ffffff" fill-opacity="0.95"/>
+<text x="360.0" y="752.0" font-family="Helvetica, Arial, sans-serif" font-size="9.6" font-weight="400" fill="#0f766e" text-anchor="end">Eloquent / query builder</text>
+<path d="M 992.0,654 L 992.0,696 L 810.0,696 L 810.0,766" fill="none" stroke="#c2410c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="707.4" y="741.4" width="92.6" height="19.0" rx="4" fill="#ffffff" fill-opacity="0.95"/>
+<text x="800.0" y="752.0" font-family="Helvetica, Arial, sans-serif" font-size="9.6" font-weight="400" fill="#c2410c" text-anchor="end">HTTP Basic Auth</text>
+<path d="M 1032.0,654 L 1032.0,716 L 1170.0,716 L 1170.0,766" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7,5" marker-end="url(#arrow)"/>
+<rect x="1180.0" y="741.8" width="125.3" height="18.6" rx="4" fill="#ffffff" fill-opacity="0.95"/>
+<text x="1180.0" y="752.0" font-family="Helvetica, Arial, sans-serif" font-size="9.2" font-weight="400" fill="#94a3b8" text-anchor="start">on failure / mock mode</text>
+</svg>
